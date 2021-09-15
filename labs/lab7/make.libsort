@@ -1,0 +1,30 @@
+CC = g++
+LIBDIR = ../../lib
+INCDIR = ../../include
+CCFLAGS = -Wall -std=c+11 -g
+LDFLAGS = -L$(LIBDIR)
+
+SRCS = comparator.cpp bubble.cpp quick.cpp printlist.cpp
+OBJS = $(SRCS: .cpp = .o)
+ARCH = libsort.a
+
+# compile
+$(ARCH): $(OBJS)
+	ar cru $@ $+
+	ranlib $@
+	
+# link
+%.o: %.cpp
+	$(CC) -c $(CCFLAGS) $<
+	
+# $(EXE1): $(OBJS)
+#		$(CC) $(CCFLAGS) -I$(INCDIR) -o $@ $^ $(LDFLAGS) 
+
+.PHONY: all install clean
+all: $(ARCH)
+clean:
+	rm -f $(OBJS)
+	
+install:
+	cp -v $(ARCH) ../../lib
+

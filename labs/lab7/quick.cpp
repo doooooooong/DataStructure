@@ -26,6 +26,7 @@
 // > ar t libsort.a                         # show objects in libsort.a 
 
 #include <iostream>
+#include "sort.h"
 using namespace std;
 
 #ifdef DEBUG
@@ -72,7 +73,7 @@ void quicksort(int *a, int n, bool (*comp)(int, int)) {
 	quicksort(a, 0, n - 1, n);  // the last argument n is added only for DPRINT()
 }
 
-#if 1
+#if 0
 #include "sort.h"
 
 int main() {

@@ -1,0 +1,28 @@
+CC = g++
+LIBDIR = ../../lib
+INCDIR = ../../include
+CCFLAGS = -Wall -std=c+11 -g
+LDFLAGS = -L$(LIBDIR) -lnowic_mac -lsort
+
+SRC1 = sortDriver.cpp
+OBJ1 = $(SRC1: .cpp =.o)
+EXE1 = sortDriver
+
+$(EXE1): $(OBJS)
+	$(CC) -o $@ $^ $(LDFLAGS)
+
+%.o: %.cpp
+	$(CC) $(CCFLAGS) -c $< -I$(INCDIR) 
+	
+.PHONY: all clean
+all: $(EXE1)
+clean:
+	rm -f $(OBJS) $(EXE1)
+
+
+# make automatic variable
+# $@ 타겟의 파일이름
+# $^ 파일들의 prerequistis
+# $< 파일들의 처음 prerequistis
+# $* 타겟 파일의 줄기
+# &+ $^과 같지만 중복을 허락한다.

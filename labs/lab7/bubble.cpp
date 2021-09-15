@@ -28,6 +28,8 @@
 // > ar t libsort.a                       # list objects in libsort.a 
 
 #include <iostream>
+#include "sort.h"
+
 using namespace std;
 
 #ifdef DEBUG

@@ -1,0 +1,10 @@
+# Using rule
+
+INCDIR = ../../include
+
+SRCS = sortDriver.cpp comparator.cpp bubble.cpp quick.cpp printlist.cpp
+OBJS = $(SRCS: .cpp = .o)
+TARGET = sortDriver
+
+$(TARGET): $(OBJS)
+	g++ -I$(INCDIR) $(SRCS) -o $(TARGET)
