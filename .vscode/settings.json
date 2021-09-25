@@ -2,6 +2,10 @@
     "files.associations": {
         "iostream": "cpp",
         "ostream": "cpp",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "map": "cpp",
+        "unordered_map": "cpp",
+        "__tree": "cpp",
+        "utility": "cpp"
     }
 }

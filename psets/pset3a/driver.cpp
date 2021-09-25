@@ -1,11 +1,11 @@
 //
 // Description:	This program is written to run and test some recursion algorithms.
 //
-// On my honour, I pledge that I have neither received nor provided improper
-// assistance in the completion of this assignment. Signed: ____YOUR NAME______
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: ___강동인_______ 학번: ____21500002___
 //
 // To build this program:
-//  g++ recursionDriver.cpp recursion.cpp -I../../include -L../../lib -lnowic -o recursion
+//  g++ driver.cpp recursion.cpp -I../../include -L../../lib -lnowic -o recursion
 //
 // History:
 // 2018/02/10	created by idebtor@gmail.com
@@ -18,6 +18,16 @@ using namespace std;
                    
 long long unsigned factorial(int n);
 int gcd(int x, int y);
+long long unsigned fibonacci(int n);
+int bunnyEars(int bunnies);
+int funnyEars(int funnies);
+int triangle(int rows);
+int sumDigits(int n);
+int count8(int n);
+long long unsigned powerN(int base, int n);
+
+
+
 // your function prototypes here
 
 int main() {
@@ -56,6 +66,7 @@ int main() {
 				cout << "\tfactorial(" << N << ") = " << factorial(N) << endl;
 			}
 			break;
+
 		case 2:
 			cout << "\tGCD Examples:\n";
 			{
@@ -76,62 +87,91 @@ int main() {
 			}
 			break;
 
-		case 3:
-			cout << "\tFibonacci Examples:\n";
-			// int nlist3[] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
 
-			cout << "\tyour code here\n";
-			
-			break;
+		case 3:
+			{
+				cout << "\tFibonacci Examples:\n";
+				int nlist3[] = {0, 1, 2, 3, 4, 5, 6, 7, 8};
+
+				for (auto i : nlist3) {
+					cout << "\tfibonacci(" << i << "): " << fibonacci(i) << "\n";
+				}
+				
+				break;
+			}
 
 		case 4:
-			cout << "\tBunnyEars Examples:\n";
+			{
+				cout << "\tBunnyEars Examples:\n";
 			
-			cout << "\tyour code here\n";
-			// int nlist4[] = {0, 1, 2, 3, 4, 5, 9, 123};
-			
+				int nlist4[] = {0, 1, 2, 3, 4, 5, 9, 123};
+				for (auto i : nlist4) {
+					cout << "\tBunnyEars(" << i << "): " << bunnyEars(i) << "\n";
+				}
 
-			break;
+				break;
+			}
 
 		case 5:
-			cout << "\tFunnyEars Examples:\n";
-			
-			cout << "\tyour code here\n";
-			// int nlist4[] = {0, 1, 2, 3, 4, 5, 9, 123};
-			
-			break;
+			{
+				cout << "\tFunnyEars Examples:\n";
+				
+				int nlist5[] = {0, 1, 2, 3, 4, 5, 9, 123};
+				for (auto i : nlist5) {
+					cout << "\tBunnyEars(" << i << "): " << funnyEars(i) << "\n";
+				}			
+				
+				break;
+			}
 
 		case 6:
-			cout << "\tTriangle Examples:\n";
-			
-			cout << "\tyour code here\n";
-			// int nlist6[] = {0, 1, 2, 3, 4, 5, 9, 123};
-			
-			break;
+			{
+				cout << "\tTriangle Examples:\n";
+				
+				int nlist6[] = {0, 1, 2, 3, 4, 5, 9, 123};
+				for (auto i : nlist6) {
+					cout << "\tTriangle(" << i << "): " << triangle(i) << "\n";
+				}	
+				break;
+			}
 
 		case 7:
-			cout << "\tSum Digits Examples:\n";
-			
-			cout << "\tyour code here\n";
-				// int nlist7[] = {1, 12, 126, 235, 1000, 10110, 654321};
-			
-			break;
+			{
+				cout << "\tSum Digits Examples:\n";
+				
+				int nlist7[] = {1, 12, 126, 235, 1000, 10110, 654321};
+				for (auto i : nlist7) {
+					cout << "\tSum Digits(" << i << "): " << sumDigits(i) << "\n";
+				}	
+				
+				break;
+			}
 
 		case 8:
-			cout << "\tCount 8 Examples:\n";
-			
-			cout << "\tyour code here\n";
-				// int nlist8[] = {8, 9, 123, 881238, 485810, 888586198};
-			
-			break;
+			{
+				cout << "\tCount 8 Examples:\n";
+				
+				int nlist8[] = {8, 9, 123, 881238, 485810, 888586198};
+				for (auto i : nlist8) {
+					cout << "\tCount8(" << i << "): " << count8(i) << "\n";
+				}
+				break;
+			}
 
 		case 9:
-			cout << "\tPower N Examples:\n";
-			
-			cout << "\tyour code here\n";
-			cout << "\tuse pair in C++ for (2,5), (3,1), (3,3), (10,3), (4,16), (2,32)\n";
+			{
+				cout << "\tPower N Examples:\n";
+				
 
-			break;
+				pair<int, int> nlist9[] = {make_pair(2, 5), make_pair(3, 1), make_pair(3, 3), 
+										make_pair(10, 3), make_pair(4, 16),
+										make_pair(2, 32)};
+
+				for (auto i : nlist9) {
+					cout << "\tPowerN(" << i.first << ", " << i.second << "): " << powerN(i.first, i.second) << "\n";
+				}
+				break;
+			}
 
 		default:
 			break;
