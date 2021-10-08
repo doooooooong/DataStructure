@@ -31,6 +31,7 @@
 #include <iomanip>
 #include <sstream>
 #include <algorithm>
+#include <vector>
 #include <cassert>
 #include <ctime>       /* clock_t, clock, CLOCKS_PER_SEC */
 #include "sort.h"
@@ -123,46 +124,23 @@ int main(int argc, char *argv[]) {
 
 	///////////// rewrite this part for DRY and MNN ////////////////////////
 
-	cout << "\n\tinsertionsort(): sorted" << endl;
-	for (int i = 0; i < N; i++) list[i] = i;   			// sorted data ready
-	profiling(insertionsort, list, N, ::less);  		
+	vector<string> sort_st = {"insertionsort", "mergesort", "quicksort"};
+	void (*sort_fp[])(int*, int, bool (*comp)(int, int)) = {insertionsort, mergesort, quicksort};
 
-	cout << "\n\tinsertionsort(): randomized" << endl;
-	randomize(list, N);
-	profiling(insertionsort, list, N, ::less);         	// randomized 
+	for (int k = 0; k < sort_st.size(); k++) {
+		cout << "\n\t" << sort_st[k] << "(): sorted" << endl;
+		for (int i = 0; i < N; i++) list[i] = i;   			// sorted data ready
+		profiling(sort_fp[k], list, N, ::less);  		
 
-	cout << "\n\tinsertionsort(): reversed" << endl;
-	int j = N - 1;
-	for (int i = 0; i < N; i++) list[i] = j--;			// reversed sequence
-	profiling(insertionsort, list, N, ::less);   		
+		cout << "\n\t" << sort_st[k] << "(): randomized" << endl;
+		randomize(list, N);
+		profiling(sort_fp[k], list, N, ::less);         	// randomized 
 
-
-	cout << "\n\tmergesort(): sorted" << endl;
-	for (int i = 0; i < N; i++) list[i] = i;   			// sorted data ready
-	profiling(mergesort, list, N, ::less);  		
-
-	cout << "\n\tmergesort(): randomized" << endl;
-	randomize(list, N);
-	profiling(mergesort, list, N, ::less);         		// randomized
-
-	cout << "\n\tmergesort(): reversed" << endl;
-	j = N - 1;
-	for (int i = 0; i < N; i++) list[i] = j--;			// reversed sequence
-	profiling(mergesort, list, N, ::less);   	
-
-	cout << "\n\tquicksort(): sorted" << endl;
-	for (int i = 0; i < N; i++) list[i] = i;   			// sorted data ready
-	profiling(quicksort, list, N, ::less);              
-
-	cout << "\n\tquicksort(): randomized" << endl;
-	randomize(list, N);
-	profiling(quicksort, list, N, ::less);              // randomized 
-
-	cout << "\n\tquicksort(): reversed" << endl;
-	j = N - 1;
-	for (int i = 0; i < N; i++) list[i] = j--;			// reversed sequence
-	profiling(quicksort, list, N, ::less);   
-
+		cout << "\n\t" << sort_st[k] << "(): reversed" << endl;
+		int j = N - 1;
+		for (int i = 0; i < N; i++) list[i] = j--;			// reversed sequence
+		profiling(sort_fp[k], list, N, ::less);  
+	}
 	///////////// rewrite this part for DRY and MNN ////////////////////////
 
 	delete [] list;

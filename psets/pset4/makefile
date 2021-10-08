@@ -23,9 +23,9 @@ $(info )
 $(info To use main() in profiling.cpp or profile.cpp as a standalone,)
 $(info turn on, set #if 1, just above main() in profiling.cpp or profile.cpp)
 $(info )
-SRC1 = profiling.cpp 
+SRC1 = profile.cpp 
 OBJ1 = $(SRC1:.cpp=.o)
-EXE1 = profiling
+EXE1 = profile
 
 # rule for link
 all: $(EXE1)  
