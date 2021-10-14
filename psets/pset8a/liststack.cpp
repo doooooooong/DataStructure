@@ -1,3 +1,6 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: 강동인  학번: 21500002
+
 // liststack.cpp
 // This program implements a stack using singly-linked list
 // without a head structure and without sentinel nodes. It simply links
@@ -27,7 +30,13 @@ pNode clear(pNode p) {
 int size(pNode p) {
 	if (empty(p)) return 0;
 	int count = 0;
-	cout << "your code here\n";
+	
+
+	while (p != nullptr) {
+		p = p->next;
+		count++;
+	}
+
 	return count;
 }
 
@@ -38,7 +47,15 @@ void minmax(pNode p, int& min, int& max) {
 		return;
 	}
 
-	cout << "your code here\n";
+	min = INT_MAX, max = INT_MIN;
+
+	Node * curr = p;
+	while (curr != nullptr) {
+		if (curr->data > max) max = curr->data;
+		if (curr->data < min) min = curr->data;
+		curr = curr->next;
+	}
+
 	return;
 }
 
@@ -53,9 +70,17 @@ bool empty(pNode p) {
 pNode push(pNode p, int val, int N) {
 	DPRINT(cout << ">push val=" << val << " N="<< N << endl;);
 
-	cout << "your code here\n";
+	val += N-1;
 	p = new Node{ val, p };
-
+	
+	val -= N;
+	while (N > 1) {
+		Node* curr = p;
+		p->next = new Node{ ++val, p->next };
+		curr = curr->next;
+		N--;
+	}
+	
 	DPRINT(cout << "<push size=" << size(p) << endl;);
 	return p;
 }
@@ -66,7 +91,11 @@ pNode pop(pNode p, int N) {
 	DPRINT(cout << ">pop size=" << size(p) << " N="<< N << endl;);
 	if (empty(p)) return nullptr;
 
-	cout << "your code here\n";
+	while (N-- && size(p) != 0) {
+		Node* curr = p;
+		p = p->next;
+		delete curr;
+	}
 
 	DPRINT(cout << "<pop size=" << size(p) << endl;);
 	return p;
@@ -74,7 +103,7 @@ pNode pop(pNode p, int N) {
 
 // returns the first node in the list. This does not destroy the node.
 pNode top(pNode p) {
-	cout << "your code here\n";
+	if (!empty(p)) return p;
 	return nullptr;
 }
 
@@ -100,17 +129,25 @@ void show(pNode p, bool all, int show_n) {
 	}
 	
 	// print the first show_n items
+	curr = p;
+	for (int i = 0; i < N-show_n; i++) {
+		if (i >= show_n) {
+			p = p->next;
+			continue;
+		}
+		
+		cout << "\t" << p->data;
+		p = p->next;
 
-	cout << "your code here: rewrite the following code\n";
-	for (pNode curr = p; curr != nullptr; curr = curr->next) {
-		cout << "\t" << curr->data;
 	}
 
 	cout << "\n...left out...\n";
 
 	// print the last show_n items
 	// Firstly, move the pointer to the place where show_n items are left.
-	cout << "your code here\n";
+	for (curr = p; curr != nullptr; curr = curr->next) {
+		cout << "\t" << curr->data;
+	}
 
 	cout << endl;
 }
