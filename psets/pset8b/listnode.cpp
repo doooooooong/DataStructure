@@ -1,3 +1,7 @@
+// On my honor, I pledge that I have neither received nor provided improper assistance in the completion of this assignment.
+// 서명: 강동인  학번: 21500002
+
+
 // listnode.cpp
 //
 // Description:	This program implements a simple linked list of nodes
@@ -78,7 +82,15 @@ void minmax(pNode p, int& min, int& max) {
 		return;
 	}
 
-	cout << "your code here\n";
+	min = INT_MAX, max = INT_MIN;
+
+	Node * curr = p;
+	while (curr != nullptr) {
+		if (curr->data > max) max = curr->data;
+		if (curr->data < min) min = curr->data;
+		curr = curr->next;
+	}
+
 	return;
 }
 
@@ -97,7 +109,7 @@ bool empty(pNode p) {
 
 // inserts a new node with val at the beginning of the list.
 // This effectively increases the list size by one.
-Node* push_front(Node* p, int val) {
+pNode push_front(pNode p, int val) {
 	DPRINT(cout << "><push_front val=" << val << endl;);
 	if (empty(p)) return new Node{ val };
 	return new Node{ val, p };
@@ -107,8 +119,14 @@ Node* push_front(Node* p, int val) {
 // first node of the list. This effectively increases the list size by one.
 pNode push_back(pNode p, int val) {
 	DPRINT(cout << "><push_back val=" << val << endl;);
+	if (empty(p)) return new Node { val };
 
-	cout << "your code here \n";
+	pNode curr = p;
+	while (curr->next != nullptr) {
+		curr = curr->next;
+	}
+
+	curr->next = new Node { val, curr->next };
 
 	return p;
 }
@@ -121,10 +139,22 @@ pNode push(pNode p, int val, int x) {
 	if (empty(p)) return push_front(p, val);
 	if (p->data == x) return push_front(p, val);
 
-	// pNode curr = p;
-	// pNode prev = nullptr;
+	pNode curr = p;
+	pNode prev = nullptr;
 
-	cout << "your code here : use while or for, but do not use if \n";
+	while (curr->next != nullptr && curr->data != x) {
+		prev = curr;
+		curr = curr->next;
+	}
+
+
+	if (curr->data != x) return push_back(p, val);
+
+	else {
+		pNode aNode = new Node { val };
+		prev->next = aNode;
+		aNode->next = curr;
+	}
 
 	return p;
 }
@@ -134,13 +164,14 @@ pNode push(pNode p, int val, int x) {
 // [0..(N + size(p))]. 
 // push_fp should be either a function pointer to push_front() 
 // or push_back(). Use rand_extended() defined in nowic/include/rand.h.
-Node* push_N(Node* p, int N, Node* (*push_fp)(Node*, int)) {
+pNode push_N(pNode p, int N, pNode (*push_fp)(pNode, int)) {
 	DPRINT(cout << ">push_N = " << N << endl;);
 
 	// int range = N + size(p);
 	srand((unsigned)time(nullptr));
 
-	cout << "your code here \n";
+	for (int i = 0; i < N; i++)
+		p = push_fp(p, N + rand()%N);
 
 	DPRINT(cout << "<push_N = " << N << endl;);
 	return p;
@@ -150,14 +181,26 @@ Node* push_N(Node* p, int N, Node* (*push_fp)(Node*, int)) {
 // The basic strategy is to iterate down the list looking for the place to insert 
 // the new node. That could be the end of the list, or a point just before a node 
 // which is larger than the new node.
-Node* push_sorted(Node* p, int val) {
+pNode push_sorted(pNode p, int val) {
 	if (empty(p) || val <= p->data) return push_front(p, val);
 
-	// Node* curr = p;
-	// Node* prev = nullptr;
+	pNode curr = p;
+	pNode prev = nullptr;
 	// locate the node before the point of insertion
 	
-	cout << "your code here \n";
+	while (curr->next != nullptr) {
+		prev = curr;
+		curr = curr->next;
+
+		if (prev->data < val && curr->data >= val) break;
+		
+	}
+
+	if (curr->next == nullptr) return push_back(p, val);
+
+	pNode aNode = new Node { val };
+	aNode->next = prev->next;
+	prev->next = aNode;
 
 	return p;
 }
@@ -165,15 +208,28 @@ Node* push_sorted(Node* p, int val) {
 // sorts the singly linked list using insertion sortand returns a new list sorted.
 // Repeatedly, invoke push_sorted() with a value in the list such that push_sorted() 
 // returns a newly formed list head.
-Node* insertion_sort(Node* p) {
+pNode insertion_sort(pNode p) {
 	if (empty(p)) return nullptr;
 	if (size(p) < 2) return p;
 
-	Node* sorted = nullptr;
-	
-	cout << "your code here \n";
+	pNode curr = p;
+	pNode next = nullptr;
 
-	return sorted;
+	while (curr != nullptr) {
+		next = curr->next;
+
+		while (next != nullptr) {
+			if (curr->data > next->data) {
+				swap(curr->data, next->data);
+			}
+
+			next = next->next;
+		}
+		curr = curr->next;
+	}
+
+
+	return p;
 }
 
 // removes the first node in the list and returns the new first node.
@@ -181,7 +237,11 @@ Node* insertion_sort(Node* p) {
 pNode pop_front(pNode p) {
 	DPRINT(cout << ">pop_front size=" << size(p) << endl;);
 
-	cout << "your code here \n";
+	if (size(p) < 2) return nullptr;
+
+	pNode aNode = p;
+	p = p->next;
+	delete aNode;
 
 	return p;
 }
@@ -190,9 +250,18 @@ pNode pop_front(pNode p) {
 // container size by one. This destroys the removed node.
 pNode pop_back(pNode p) {
 	DPRINT(cout << ">pop_back size=" << size(p) << endl;);
-	if (empty(p)) return nullptr;
+	if (size(p) < 2) return nullptr;
 
-	cout << "your code here \n";
+	pNode curr = p;
+	pNode prev = nullptr;
+
+	while (curr->next != nullptr) {
+		prev = curr;
+		curr = curr->next;
+	}
+
+	delete curr;
+	prev->next = nullptr;
 
 	DPRINT(cout << "<pop_back size=" << size(p) << endl;);
 	return p;
@@ -201,10 +270,12 @@ pNode pop_back(pNode p) {
 // deletes N number of nodes, starting from the beginning or back of the list. 
 // It deletes all the nodes if N is zero which is the default or out of 
 // the range of the list. 
-Node* pop_N(Node* p, int N, Node* (*pop_fp)(Node*)) {
+pNode pop_N(pNode p, int N, pNode (*pop_fp)(pNode)) {
 	DPRINT(cout << ">pop_N N=" << N << endl;);
-
-	cout << "your code here \n";
+	if (size(p) <= N) return nullptr;
+	
+	for (int i = 0; i < N; i++)
+		p = pop_fp(p);
 
 	DPRINT(cout << "<pop_N size=" << size(p) << endl);
 	return p;
@@ -217,7 +288,20 @@ pNode pop(pNode p, int val) {
 
 	if (p->data == val) return pop_front(p);
 
-	cout << "your code here : use while or for, but do not use if \n";
+	pNode curr = p;
+	pNode prev = nullptr;
+
+	while (curr->next != nullptr && curr->data != val) {
+		prev = curr;
+		curr = curr->next;
+	}
+
+	if (curr->data == val && curr->next == nullptr) return pop_back(p);
+
+	if (curr->data == val && curr->next != nullptr) {
+		prev->next = curr->next;
+		delete curr;
+	}
 
 	DPRINT(cout << "<pop size=" << size(p) << endl;);
 	return p;
@@ -230,26 +314,46 @@ pNode pop(pNode p, int val) {
 // Even though it goes through the list twice, its time complexity is 
 // still O(n).This algorithm, however, takes much longer time than 
 // in-place reverse algorithm of which the time complexity is also O(n).
-Node* reverse_using_stack(Node* head) {
+pNode reverse_using_stack(pNode head) {
 	if (empty(head)) return nullptr;    // nothing to reverse
 	
-	// stack<Node*> s;
-	// Node* curr = head;
+	stack < pNode > s;
+	pNode curr = head;
 
-	cout << "your code here \n";
+	while (curr->next != nullptr) {
+		s.push(curr);
+		curr = curr->next;
+	}
+
+	head = curr;
+
+	while (!s.empty()) {
+		curr->next = s.top();
+
+		curr = curr->next;
+		s.pop();
+	}
+
+	curr->next = nullptr;
 
 	return head;
 }
 
 // reverses a singly linked list and returns the new head. The last node
 // becomes the head node. 
-Node* reverse_in_place(Node* head) {
+pNode reverse_in_place(pNode head) {
 	if (empty(head)) return nullptr;    // nothing to reverse
 
-	Node* prev = nullptr;
-	// Node* curr = head;
+	pNode prev = nullptr;
+	pNode last = nullptr;
+	pNode curr = head;
 
-	cout << "your code here \n";
+	while (curr != nullptr) {
+        last = prev;
+        prev = curr;
+        curr = curr->next;
+        prev->next = last;
+    }
 
 	return prev;
 }
@@ -260,11 +364,25 @@ Node* reverse_in_place(Node* head) {
 // half keeps one more node than the first half. For example, 
 // the second half keeps 5 nodes if there are 9 nodes.
 // the size of the list must be equal to or greater than two.
-pair<Node*, Node*> cut_in_two_halves(Node* p) {
+pair<pNode, pNode> cut_in_two_halves(pNode p) {
 
-	cout << "your code here\n";
+	if (size(p) == 1) return make_pair(p, p);
 
-	return make_pair(p, p);  // p's are just place-holders.
+	int n = size(p) / 2;
+	int count = 0;
+
+	pNode curr = p;
+	pNode prev = nullptr;
+	while (count != n) {
+		prev = curr;
+		curr = curr->next;
+		count++;
+	}
+
+	prev->next = nullptr;
+	pNode p2 = curr; 
+
+	return make_pair(p, p2);  // p's are just place-holders.
 }
 
 // removes consecutive items in the list, and leaves its neighbors unique.
@@ -272,10 +390,26 @@ pair<Node*, Node*> cut_in_two_halves(Node* p) {
 // nodes are the same, remove the second one.There's a tricky case where 
 // the node after the next node needs to be noted before the deletion. 
 // Your implementation must go through the list only once.
-Node* zap_duplicates(Node* p) {
+pNode zap_duplicates(pNode p) {
 	if (empty(p)) return nullptr;
+	if (size(p) == 1) return p;
 
-	cout << "your code here\n";
+	pNode curr = p->next;
+	pNode prev = p;
+
+	while (curr != nullptr) {
+		if (prev->data == curr->data) {
+			pNode aNode = curr;
+			prev->next = curr->next;
+			curr = curr->next;
+			delete aNode;
+		}
+
+		else {
+			prev = curr;
+			curr = curr->next;
+		}
+	}
 
 	return p;
 }
@@ -290,27 +424,39 @@ void show(pNode p, bool all, int show_n) {
 		cout << "\n\tThe list is empty.\n";
 		return;
 	}
+
 	int i;
 	pNode curr;
 	const int N = size(p);
-
-	cout << "FRONT";
-	if (all || N < show_n * 2) {
+	cout << endl << "TOP ";
+	if (all || N <= show_n * 2) {
 		for (i = 1, curr = p; curr != nullptr; curr = curr->next, i++) {
 			cout << "\t" << curr->data;
 			if (i % show_n == 0) cout << endl;
 		}
 		return;
 	}
-
+	
 	// print the first show_n items
-	cout << "your code here \n";
+	curr = p;
+	for (int i = 0; i < N-show_n; i++) {
+		if (i >= show_n) {
+			p = p->next;
+			continue;
+		}
+		
+		cout << "\t" << p->data;
+		p = p->next;
 
-	cout << "\n\t...left out...\n";
+	}
+
+	cout << "\n...left out...\n";
+
 	// print the last show_n items
-	// move the pointer to the place where show_n items are left.
+	// Firstly, move the pointer to the place where show_n items are left.
+	for (curr = p; curr != nullptr; curr = curr->next) {
+		cout << "\t" << curr->data;
+	}
 
-	cout << "your code here \n";
-
-	cout << "\n";
+	cout << endl;
 }

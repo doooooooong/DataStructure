@@ -56,7 +56,7 @@ Instead of using a static array for sorting, we want to allocate a dynamic array
     - Quit the program if the user enters `q`.
     - If necessary, include <string> header file to use functions such as `getline()` and `stoi()`. 
     - Check your run with the sample solution `selectionx.exe`. 
-  
+    
     ```
     int n = 0;
     while (n <= 1) {
@@ -110,7 +110,7 @@ Instead of using a static array for sorting, we want to allocate a dynamic array
         990      992      993      993      994      995      996      997      998      999
 
   Happy Coding~~
-  ```
+```
 
 ## Step 3: Adding a default comparator function pointer
 As you experienced in `bubblesort.cpp`, add an third parameter to `selectionsort()` such that it can sort in both ascending and descending order. 
@@ -125,9 +125,9 @@ As you experienced in `bubblesort.cpp`, add an third parameter to `selectionsort
     // more() and less() are equivalent to greater<int>() and less<int>() in STL. 
     bool more(int x, int y) { return x > y; }   // for descending order
     bool less(int x, int y) { return x < y; }   // for ascending order 
-
+    
     // your code here - the function prototype with a default comparator argument
-
+    
     int main() {
       ...
     }
@@ -139,7 +139,7 @@ As you experienced in `bubblesort.cpp`, add an third parameter to `selectionsort
       selectionsort(list, n, more);
       cout << "SORTED(" << n << "): descending using fp\n";
       printlist(list, n);
-
+    
       // deallocate *list
       ...
       ...
@@ -246,5 +246,5 @@ There are many ways to do this type of conversion.
 # File(s) to submit for this Lab:
   - selection.cpp
 ----------------------------
-_One thing I know, I was blind but now I see. John 9:25_
+_One thing I know, I was blind but now I see. John 9:25_ 
 ----------------------------
