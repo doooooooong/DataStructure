@@ -6,6 +6,23 @@
         "map": "cpp",
         "unordered_map": "cpp",
         "__tree": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "stack": "cpp",
+        "__split_buffer": "cpp",
+        "deque": "cpp",
+        "list": "cpp",
+        "string": "cpp",
+        "vector": "cpp",
+        "__locale": "cpp",
+        "__string": "cpp",
+        "algorithm": "cpp",
+        "atomic": "cpp",
+        "bitset": "cpp",
+        "iterator": "cpp",
+        "ios": "cpp",
+        "istream": "cpp",
+        "locale": "cpp",
+        "memory": "cpp",
+        "streambuf": "cpp"
     }
 }
